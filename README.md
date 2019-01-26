@@ -10,6 +10,13 @@ cd /var/jenkins_home/.composer
 composer update
 ```
 
+### Changing Jenkins Settings
+
+#### Global Properties
+* Environment Variables
+  * Name: PATH
+  * Value: $PATH:vendor/bin:/var/jenkins_home/.composer/vendor/bin/
+
 ## Usage
 1. Use the initial Password in the container logs to setup Jenkins.
 2. Create a new build project with using the "php-template" project
