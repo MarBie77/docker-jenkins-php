@@ -64,20 +64,19 @@ server {
     ssl_prefer_server_ciphers on;
 
     location / {
-
         proxy_set_header        Host $host:$server_port;
         proxy_set_header        X-Real-IP $remote_addr;
         proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header        X-Forwarded-Proto $scheme;
-	proxy_set_header	X-Forwarded-Host $host:$server_port;
+        proxy_set_header	X-Forwarded-Host $host:$server_port;
 
-	proxy_redirect http:// https://;
+        proxy_redirect http:// https://;
     	proxy_pass              http://jenkins:8080;
 
         # Required for new HTTP-based CLI
         proxy_http_version 1.1;
         proxy_request_buffering off;
-	proxy_buffering off; # Required for HTTP-based CLI to work over SSL
+        proxy_buffering off; # Required for HTTP-based CLI to work over SSL
         # workaround for https://issues.jenkins-ci.org/browse/JENKINS-45651
         add_header 'X-SSH-Endpoint' 'jenkins.example.com:50022' always;
     }
