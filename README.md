@@ -12,10 +12,12 @@ Docker container for Jenkins to build PHP Applications
 Goto "Manage Jenkins" und choose "Configure System", then change:
 
 * Environment Variables
-  * Name: PATH
-  * Value: $PATH:vendor/bin:/var/jenkins_home/.composer/vendor/bin/
+  * Name: PATH+EXTRA
+  * Value: vendor/bin:/var/jenkins_home/.composer/vendor/bin/
 
-This makes sure, that your local composer.json tool versions are used before the global ones installed are used.
+This makes sure, that your local composer.json tool versions are used before the global ones.
+
+> Do NOT modify the PATH-environment, otherwise the sh-command will fail when used with pipeline projects!
 
 ### docker-compose.yml example configuration
 Mount the volume /var/jenkins_home, so data is not lost during update.
