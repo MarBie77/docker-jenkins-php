@@ -5,7 +5,7 @@ LABEL maintainer="Martin Biermair <martin@biermair.at>"
 USER root
 
 # install alpine packages executable ant for jenkins
-RUN apk add --no-cache yarn apache-ant
+RUN apk add --no-cache yarn apache-ant rsync
 
 # adding php with extensions
 RUN apk add --no-cache php7 php7-dom php7-xml php7-xmlwriter php7-openssl php7-json php7-phar php7-iconv php7-mbstring php7-tokenizer php7-simplexml php7-xsl php7-fileinfo php7-soap php7-xdebug php7-pdo php7-intl php7-session
