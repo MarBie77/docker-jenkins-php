@@ -1,14 +1,17 @@
 # docker-jenkins-php
+
 Docker container for Jenkins to build PHP Applications
 
 ## Setup Jenkins
 
 ### First time installation
+
 1. Use the initial Password in the container logs to setup Jenkins.
 2. Create a new build project with using the "php-template" project
 3. Do NOT forget to add the build-files to your GIT-repository, which you want to build
 
 ### Jenkins Settings
+
 Goto "Manage Jenkins" und choose "Configure System", then change:
 
 * Environment Variables
@@ -20,6 +23,7 @@ This makes sure, that your local composer.json tool versions are used before the
 > Do NOT modify the PATH-environment, otherwise the sh-command will fail when used with pipeline projects!
 
 ### docker-compose.yml example configuration
+
 Mount the volume /var/jenkins_home, so data is not lost during update.
 
 ```yaml
@@ -48,7 +52,8 @@ networks:
 ```
 
 ### Nginx configuration example
-example configuration for ssl Jenkins. Certificates need to be fetched from https://letsencrypt.org/
+
+example configuration for ssl Jenkins. Certificates need to be fetched from <https://letsencrypt.org/>
 
 ```Nginx
 server {
@@ -57,7 +62,7 @@ server {
 
     ssl_certificate "/etc/letsencrypt/live/jenkins.example.com/fullchain.pem";
     ssl_certificate_key "/etc/letsencrypt/live/jenkins.example.com/privkey.pem";
-    
+
     ssl_dhparam /etc/nginx/ssl/dhparams.pem;
     ssl_session_cache shared:SSL:1m;
     ssl_session_timeout  10m;
@@ -67,13 +72,13 @@ server {
 
     location / {
         proxy_set_header        Host $host:$server_port;
-        proxy_set_header        X-Real-IP $remote_addr;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Proto $scheme;
-        proxy_set_header	X-Forwarded-Host $host:$server_port;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host:$server_port;
 
         proxy_redirect http:// https://;
-    	proxy_pass              http://jenkins:8080;
+        proxy_pass http://jenkins:8080;
 
         # Required for new HTTP-based CLI
         proxy_http_version 1.1;
@@ -85,21 +90,26 @@ server {
 }
 ```
 
-To generate dhparams.pem (Diffie Hellman Parameters, see https://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours/95184#95184), use
+To generate dhparams.pem (Diffie Hellman Parameters, see <https://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours/95184#95184>), use
+
 ```bash
 openssl dhparam -dsaparam -out /etc/ssl/private/dhparam.pem 4096
 ```
 
 ### Test your SSL/HTTPS installation
-SSL-Tester: https://www.ssllabs.com/ssltest/
+
+SSL-Tester: <https://www.ssllabs.com/ssltest/>
 
 ### Backup Jenkins
+
 Do NOT forget to backup the jenkins-data volume!
 
 ## Notice
+
 The container image installs the php-dependencies for the jenkins plugin on first run. If you want to update them to new versions:
 
 Connect to container (i.e. "docker-compose exec jenkins bash"):
+
 ```bash
 cd /var/jenkins_home/.composer
 composer update
