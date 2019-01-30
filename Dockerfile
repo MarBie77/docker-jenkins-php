@@ -31,7 +31,7 @@ RUN php -r "unlink('composer-setup.php');"
 USER jenkins
 
 # install jenkins plugis
-RUN install-plugins.sh ant cloverphp crap4j htmlpublisher plot xunit git greenballs warnings-ng workflow-aggregator
+RUN install-plugins.sh ant cloverphp crap4j htmlpublisher plot xunit git greenballs warnings-ng workflow-aggregator clover
 
 # add entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
