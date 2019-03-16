@@ -18,7 +18,7 @@ COPY ./config.xml /usr/src/docker-jenkins-php/
 # workaround for iconv-problem in phpdox (//TRANSLIT is not supported charset in alpine)
 # see also https://github.com/docker-library/php/issues/240
 # see https://wiki.musl-libc.org/functional-differences-from-glibc.html#iconv
-RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
+RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 # install composer
