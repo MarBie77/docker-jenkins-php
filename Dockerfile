@@ -8,7 +8,7 @@ USER root
 RUN apk add --no-cache yarn apache-ant rsync
 
 # adding php with extensions
-RUN apk add --no-cache php7 php7-dom php7-xml php7-xmlwriter php7-openssl php7-json php7-phar php7-iconv php7-mbstring php7-tokenizer php7-simplexml php7-xsl php7-fileinfo php7-soap php7-xdebug php7-pdo php7-intl php7-session
+RUN apk add --no-cache php7@edge php7-dom@edge php7-xml@edge php7-xmlwriter@edge php7-openssl@edge php7-json@edge php7-phar@edge php7-iconv@edge php7-mbstring@edge php7-tokenizer@edge php7-simplexml@edge php7-xsl@edge php7-fileinfo@edge php7-soap@edge php7-xdebug@edge php7-pdo@edge php7-intl@edge php7-session@edge
 
 # copy php configuration files
 COPY ./php-conf.d/*.ini /etc/php7/conf.d/
