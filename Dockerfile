@@ -18,8 +18,8 @@ COPY ./config.xml /usr/src/docker-jenkins-php/
 # workaround for iconv-problem in phpdox (//TRANSLIT is not supported charset in alpine)
 # see also https://github.com/docker-library/php/issues/240
 # see https://wiki.musl-libc.org/functional-differences-from-glibc.html#iconv
-RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+#RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted
+#ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 # install composer
 RUN apk add --no-cache composer
@@ -31,7 +31,7 @@ USER jenkins
 RUN install-plugins.sh ant cloverphp crap4j htmlpublisher plot xunit git greenballs warnings-ng workflow-aggregator clover
 
 # copy composer.json to global home of jenkins user
-COPY ./addon/composer.json ${JENKINS_HOME}/.composer/
+COPY --chown=jenkins:jenkins ./addon/composer.json ${JENKINS_HOME}/.composer/
 
 # add entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
