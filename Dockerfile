@@ -28,7 +28,7 @@ RUN apk add --no-cache composer
 USER jenkins
 
 # install jenkins plugis
-RUN install-plugins.sh ant cloverphp crap4j htmlpublisher plot xunit git greenballs warnings-ng workflow-aggregator clover
+RUN install-plugins.sh ant crap4j htmlpublisher plot xunit git greenballs warnings-ng workflow-aggregator clover
 
 # copy composer.json to global home of jenkins user
 COPY --chown=jenkins:jenkins ./addon/composer.json ${JENKINS_HOME}/.composer/
