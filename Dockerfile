@@ -8,7 +8,10 @@ USER root
 RUN apk add --no-cache npm apache-ant rsync
 
 # adding php with extensions
-RUN apk add --no-cache php7 php7-dom php7-xml php7-xmlwriter php7-openssl php7-json php7-phar php7-iconv php7-mbstring php7-tokenizer php7-simplexml php7-xsl php7-fileinfo php7-soap php7-xdebug php7-pdo php7-intl php7-session
+RUN apk add --no-cache php8 php8-dom php8-curl php8-xml php8-xmlwriter php8-openssl php8-json php8-phar php8-iconv php8-mbstring php8-tokenizer php8-simplexml php8-xsl php8-fileinfo php8-soap php8-xdebug php8-pdo php8-intl php8-session
+
+# add php8 as default binary
+RUN ln -s /usr/bin/php8 /usr/bin/php
 
 # install corepack because nodejs < 16.10, needed for yarn 3.x
 RUN npm -g install corepack
@@ -17,7 +20,7 @@ RUN npm -g install corepack
 RUN yarn set version stable
 
 # copy php configuration files
-COPY ./php-conf.d/*.ini /etc/php7/conf.d/
+COPY ./php-conf.d/*.ini /etc/php8/conf.d/
 
 COPY ./config.xml /usr/src/docker-jenkins-php/
 
@@ -27,8 +30,8 @@ COPY ./config.xml /usr/src/docker-jenkins-php/
 #RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted
 #ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
-# install composer
-RUN apk add --no-cache composer
+# install composer from composer docker image
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # switch back to jenkins user
 USER jenkins
