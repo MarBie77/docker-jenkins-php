@@ -11,7 +11,7 @@ RUN apk add --no-cache npm apache-ant rsync
 RUN apk add --no-cache php81 php81-dom php81-curl php81-xml php81-xmlwriter php81-openssl php81-json php81-phar php81-iconv php81-mbstring php81-tokenizer php81-simplexml php81-xsl php81-fileinfo php81-soap php81-xdebug php81-pdo php81-intl php81-session
 
 # add php8 as default binary
-#RUN ln -s /usr/bin/php8 /usr/bin/php
+RUN ln -s /usr/bin/php81 /usr/bin/php
 
 # install corepack because nodejs < 16.10, needed for yarn 3.x
 RUN npm -g install corepack
