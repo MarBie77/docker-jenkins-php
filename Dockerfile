@@ -11,7 +11,7 @@ RUN apk add --no-cache npm apache-ant rsync
 RUN apk add --no-cache php8 php8-dom php8-curl php8-xml php8-xmlwriter php8-openssl php8-json php8-phar php8-iconv php8-mbstring php8-tokenizer php8-simplexml php8-xsl php8-fileinfo php8-soap php8-xdebug php8-pdo php8-intl php8-session
 
 # add php8 as default binary
-RUN ln -s /usr/bin/php8 /usr/bin/php
+#RUN ln -s /usr/bin/php8 /usr/bin/php
 
 # install corepack because nodejs < 16.10, needed for yarn 3.x
 RUN npm -g install corepack
@@ -37,7 +37,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 USER jenkins
 
 # install jenkins plugis
-RUN install-plugins.sh ant crap4j htmlpublisher plot xunit git greenballs warnings-ng workflow-aggregator clover
+RUN jenkins-plugin-cli --plugins ant crap4j htmlpublisher plot xunit git greenballs warnings-ng workflow-aggregator clover
 
 # copy composer.json to global home of jenkins user
 COPY --chown=jenkins:jenkins ./addon/composer.json ${JENKINS_HOME}/.composer/
