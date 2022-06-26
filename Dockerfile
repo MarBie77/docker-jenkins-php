@@ -8,7 +8,7 @@ USER root
 RUN apk add --no-cache npm apache-ant rsync
 
 # adding php with extensions
-RUN apk add --no-cache php8 php8-dom php8-curl php8-xml php8-xmlwriter php8-openssl php8-json php8-phar php8-iconv php8-mbstring php8-tokenizer php8-simplexml php8-xsl php8-fileinfo php8-soap php8-xdebug php8-pdo php8-intl php8-session
+RUN apk add --no-cache php81 php81-dom php81-curl php81-xml php81-xmlwriter php81-openssl php81-json php81-phar php81-iconv php81-mbstring php81-tokenizer php81-simplexml php81-xsl php81-fileinfo php81-soap php81-xdebug php81-pdo php81-intl php81-session
 
 # add php8 as default binary
 #RUN ln -s /usr/bin/php8 /usr/bin/php
