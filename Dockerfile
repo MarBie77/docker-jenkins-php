@@ -34,7 +34,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 USER jenkins
 
 # install jenkins plugis
-RUN jenkins-plugin-cli --plugins ant crap4j htmlpublisher plot xunit git greenballs warnings-ng workflow-aggregator clover
+RUN jenkins-plugin-cli --plugins htmlpublisher plot xunit git greenballs warnings-ng workflow-aggregator clover
 
 # copy composer.json to global home of jenkins user
 COPY --chown=jenkins:jenkins ./addon/composer.json ${JENKINS_HOME}/.composer/
