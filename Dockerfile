@@ -8,7 +8,9 @@ USER root
 RUN apk add --no-cache npm apache-ant rsync
 
 # adding php with extensions
-RUN apk add --no-cache php81 php81-dom php81-curl php81-xml php81-xmlwriter php81-openssl php81-json php81-phar php81-iconv php81-mbstring php81-tokenizer php81-simplexml php81-xsl php81-fileinfo php81-soap php81-xdebug php81-pdo php81-intl php81-session
+RUN apk add --no-cache php82 php82-dom php82-curl php82-xml php82-xmlwriter php82-openssl php82-json php82-phar php82-iconv php82-mbstring php82-tokenizer php82-simplexml php82-xsl php82-fileinfo php82-soap php82-pecl-xdebug php82-pdo php82-intl php82-session
+
+RUN ln -s /usr/bin/php82 /usr/bin/php
 
 # install corepack because nodejs < 16.10, needed for yarn 3.x
 RUN npm -g install corepack
@@ -17,7 +19,7 @@ RUN npm -g install corepack
 RUN yarn set version stable
 
 # copy php configuration files
-COPY ./php-conf.d/*.ini /etc/php8/conf.d/
+COPY ./php-conf.d/*.ini /etc/php82/conf.d/
 
 COPY ./config.xml /usr/src/docker-jenkins-php/
 
